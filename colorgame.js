@@ -33,7 +33,7 @@ function buildTiles(color) {
   tiles.addEventListener("click", () => {
     const revealed = tiles.getAttribute("data-revealed");
 
-    if (awaitingEndOfMove || revealed === true || tiles === activeTile) {
+    if (awaitingEndOfMove || revealed === "true" || tiles === activeTile) {
       // the two unmatched color will be turned around again
       // if revealed is true then return then don't do anything
       // if your trying to click on the same tile twice return and cancel the move
@@ -46,6 +46,7 @@ function buildTiles(color) {
     // if there is no active tile
     if (!activeTile) {
       activeTile = tiles; // the activeTile will be equal to the current tile
+
       return; // Cancel the enitre function, you need to choose a second tile to matched
     }
 
@@ -53,8 +54,9 @@ function buildTiles(color) {
     const colorToMatched = activeTile.getAttribute("data-color");
 
     if (colorToMatched === color) {
-      activeTile.setAttribute("data-revealed", true); // set the activetile and tile's attribute to true when it's matched
       tiles.setAttribute("data-revealed", true);
+      activeTile.setAttribute("data-revealed", true); // set the activetile and tile's attribute to true when it's matched
+
       awaitingEndOfMove = false; // Make this both again in order to not hide the matched colors
       activeTile = null;
       revealedCount += 2; // If the color Matched revealedCount +2
